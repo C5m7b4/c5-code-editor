@@ -40,6 +40,9 @@ export interface EditorProps {
   customAppWords?: string[];
   customDefaults?: string[];
   customAlternatives?: string[];
+  colorInterfaceContents?: boolean;
+  interfaceKey?: string;
+  interfaceValue?: string;
   format?: boolean;
   parserType?: Parsers;
 }
@@ -73,6 +76,9 @@ const Editor: React.FC<EditorProps> = ({
   customAppWords = [],
   customDefaults = [],
   customAlternatives = [],
+  colorInterfaceContents = true,
+  interfaceKey = findColor('interface-key'),
+  interfaceValue = findColor('interface-value'),
   parserType = 'babel',
   format = false,
 }) => {
@@ -90,7 +96,7 @@ const Editor: React.FC<EditorProps> = ({
       const lines = code.split('\n');
       setLines(lines);
     }
-  }, [code]);
+  }, [code, format, parserType]);
 
   const formatCode = (code: string): string => {
     try {
@@ -109,6 +115,24 @@ const Editor: React.FC<EditorProps> = ({
   };
 
   const replace = (line: string): string => {
+    if (colorInterfaceContents) {
+      if (line.indexOf(':') > 0) {
+        const pos = line.indexOf(':');
+        const left = line.substring(0, pos);
+        const right = line.substring(pos + 1);
+        const regExp1 = new RegExp(left);
+        line = line.replace(
+          regExp1,
+          `<span style="color:${interfaceKey}">${left}</span>`
+        );
+        const regExp2 = new RegExp(right);
+        line = line.replace(
+          regExp2,
+          `<span style="color:${interfaceValue}">${right}</span>`
+        );
+      }
+    }
+
     if (enableCodeStr) {
       line = line.replace(
         /&quot;(.*?)&quot;/g,
@@ -198,7 +222,7 @@ const Editor: React.FC<EditorProps> = ({
 
     if (customReserveWords.length > 0) {
       customReserveWords.forEach((word) => {
-        if (word.length > 0) {
+        if (word.trim().length > 0) {
           const re = new RegExp(word, 'g');
           line = line.replace(
             re,
@@ -210,7 +234,7 @@ const Editor: React.FC<EditorProps> = ({
 
     if (customAppWords.length > 0) {
       customAppWords.forEach((word) => {
-        if (word.length > 0) {
+        if (word.trim().length > 0) {
           const re = new RegExp(word, 'g');
           line = line.replace(
             re,
@@ -222,7 +246,7 @@ const Editor: React.FC<EditorProps> = ({
 
     if (customDefaults.length > 0) {
       customDefaults.forEach((word) => {
-        if (word.length > 0) {
+        if (word.trim().length > 0) {
           const re = new RegExp(word, 'g');
           line = line.replace(
             re,
@@ -234,11 +258,13 @@ const Editor: React.FC<EditorProps> = ({
 
     if (customAlternatives.length > 0) {
       customAlternatives.forEach((word) => {
-        const re = new RegExp(word, 'g');
-        line = line.replace(
-          re,
-          `<span style="color:${alternates}">${word}</span>`
-        );
+        if (word.trim().length > 0) {
+          const re = new RegExp(word, 'g');
+          line = line.replace(
+            re,
+            `<span style="color:${alternates}">${word}</span>`
+          );
+        }
       });
     }
 
