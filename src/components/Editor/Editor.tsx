@@ -90,7 +90,7 @@ const Editor: React.FC<EditorProps> = ({
       if (format) {
         code = formatCode(code);
       }
-      code = htmlEncode(code);
+      code = htmlEncode(code.slice(0, -1));
     }
     if (code.length > 0) {
       const lines = code.split('\n');
