@@ -9,7 +9,7 @@ export const snippets: SnippetArray = [
   {
     name: 'App',
     contents: `import React from 'react'
-  const App = () => {
+  const App = (a) => {
     return (
       <div className="main-div">
         <h2>Hello world</h2>
@@ -54,5 +54,13 @@ export const snippets: SnippetArray = [
   {
     name: 'Content-Type',
     contents: `'Content-Type'`,
+  },
+  {
+    name: 'Parens',
+    contents: `const a = 10
+      if ( a > 10){
+        console.log('a is greater than 10')
+      }
+    `,
   },
 ];
