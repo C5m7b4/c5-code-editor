@@ -68,6 +68,10 @@ const Demo: React.FC = () => {
   const [parser, setParser] = useState<Parsers>('babel');
   const [parenColor, setParenColor] = useState<Color>(findColor('parens'));
   const [enableParens, setEnableParens] = useState(true);
+  const [insideParens, setInsideParens] = useState<Color>(
+    findColor('inside-parens')
+  );
+  const [enableInsideParens, setEnableInsideParens] = useState(true);
 
   useEffect(() => {}, [showLineNumbers]);
 
@@ -121,6 +125,8 @@ const Demo: React.FC = () => {
           customAlternatives={customAlternatives}
           parens={parenColor as string}
           enableParens={enableParens}
+          insideParens={insideParens as string}
+          enableInsideParens={enableInsideParens}
           parserType={parser}
           format={format}
         />
@@ -256,6 +262,13 @@ const Demo: React.FC = () => {
             varSetter={setParenColor}
             enable={enableParens}
             enableSetter={setEnableParens}
+          />
+          <CodeElement
+            label={'Inside Parens'}
+            variable={insideParens}
+            varSetter={setInsideParens}
+            enable={enableInsideParens}
+            enableSetter={setEnableInsideParens}
           />
         </div>
         <div className="customs">
