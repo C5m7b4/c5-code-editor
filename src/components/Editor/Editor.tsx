@@ -32,6 +32,8 @@ export interface EditorProps {
   enableBetweenSingleQuotes?: boolean;
   parens?: string;
   enableParens?: boolean;
+  insideParens?: string;
+  enableInsideParens?: boolean;
   alternates?: string;
   enableAlternates?: boolean;
   customReserveWords?: string[];
@@ -63,6 +65,8 @@ const Editor: React.FC<EditorProps> = ({
   enableBetweenSingleQuotes = true,
   parens = findColor('parens'),
   enableParens = true,
+  insideParens = findColor('inside-parens'),
+  enableInsideParens = true,
   alternates = findColor('alternates'),
   enableAlternates = true,
   customReserveWords = [],
@@ -133,13 +137,16 @@ const Editor: React.FC<EditorProps> = ({
       );
     }
 
+    if (enableInsideParens) {
+      line = line.replace(
+        /\((.*?)\)/g,
+        `<span style="color:${insideParens}">($1)</span>`
+      );
+    }
+
     if (enableParens) {
       line = line.replace(/\(/g, `<span style="color:${parens}">(</span>`);
       line = line.replace(/\)/g, `<span style="color:${parens}">)</span>`);
-      // line = line.replace(
-      //   /\((.?)\)/g,
-      //   `<span style="color:${parens}">($1)</span>`
-      // );
     }
 
     if (enableCodeElem) {
@@ -151,7 +158,7 @@ const Editor: React.FC<EditorProps> = ({
 
     if (enableReserved) {
       reservedWords.forEach((word) => {
-        const re = new RegExp(word, 'g');
+        const re = new RegExp(word, 'gi');
         line = line.replace(
           re,
           `<span style="color:${reserved}">${word}</span>`
