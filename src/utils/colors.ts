@@ -15,4 +15,5 @@ export const colors: ColorArray = [
   { name: 'code-single', color: '#19E637' },
   { name: 'between-single-quotes', color: '#0DC9F2' },
   { name: 'alternates', color: '#f513c1' },
+  { name: 'parens', color: '#B7BE34' },
 ];
