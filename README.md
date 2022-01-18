@@ -1,1 +1,117 @@
-# Awesome Library
+# c5-code-editor
+
+This is a small utility that allows displaying source code nicely in a react app.
+
+To install:
+
+```js
+  npm install c5-code-editor
+```
+
+Sample usage:
+
+```js
+import React, { useState } from 'react';
+import Editor, { findColor } from 'c5-code-editor';
+
+const App = () => {
+  const [code, setCode] = useState(`import React from 'react'
+  const App = (a) => {
+    return (
+      <div className="main-div">
+        <h2>Hello world</h2>
+      </div>
+    )
+  }`);
+
+  return <Editor code={code} />;
+};
+```
+
+Props:
+| Prop Name | optional | type | description |
+| :---------- | :-------- | :-------- | :---------- |
+| code | [required] | string | the code you want displayed |
+| showLineNumbers | [✔] | boolean | show line numbers or not |
+| codeElem | [✔] | string | color for the code elements |
+| enableCodeElem | [✔] | boolean | color code elements or not |
+| codeStr | [✔] | string | color of strings inside double quotes |
+| enableCodeStr | [✔] | boolean | color code string or not |
+| codeQuote | [✔] | string | color of quotation marks |
+| enableCodeQuote | [✔] | boolean | color quotation marks or not |
+| reserved | [✔] | string | color of reserved words |
+| enableReserved | [✔] | boolean | color reserved words or not |
+| appColor | [✔] | string | color of app like words |
+| enableAppColor | [✔] | boolean | color app like words or not |
+| defaultColor | [✔] | string | color of default like words |
+| enableDefaultColor | [✔] | boolean | color default like words or not |
+| codeSingle | [✔] | string | color of single quotes |
+| enableCodeSingle | [✔] | boolean | color single quotes or not |
+| betweenSingleQuotes | [✔] | string | color of contents between single quotes |
+| enableBetweenSingleQuotes | [✔] | boolean | color contents between single quotes or not |
+| parens | [✔] | string | color of parenthesis |
+| enableParens | [✔] | boolean | color parenthesis or not |
+| insideParens | [✔] | string | color of contents inside of parenthesis |
+| enableInsideParens | [✔] | boolean | color contents inside of parenthesis or not |
+| alternates | [✔] | string | color of alternate words |
+| enableAlternates | [✔] | boolean | color alternate words or not |
+| customReserveWords | [✔] | array of strings | an array of words that you would like to include in the coloring of reserve words |
+| customAppWords | [✔] | array of strings | an array of words that you would like to include in the coloring of app words |
+| customDefaults | [✔] | array of strings | an array of words that you would like to include in the coloring of default words |
+| customAlternatives | [✔] | array of strings | an array of words that you would like to include in the coloring of alternative words |
+| parserType | [✔] | string | type of parser to use with Prettier to format the code string |
+| format | [✔] | boolean | format code or not
+
+words list:
+
+```js
+export const reservedWords: string[] = [
+  'id',
+  'className',
+  'class',
+  'if',
+  'then',
+  'json',
+  'application',
+  'method',
+  'async',
+  'await',
+  'for',
+];
+
+export const defaultWords: string[] = [
+  'return',
+  'import',
+  'console',
+  'log',
+  'from',
+];
+
+export const appWords: string[] = [
+  'React',
+  'Axios',
+  'const',
+  'function',
+  'let',
+  'var',
+  'avion',
+];
+
+export const alternateWords: string[] = ['url', 'params', 'data', 'cors'];
+```
+
+Parser Types:
+
+```js
+export type Parsers =
+  | 'babel'
+  | 'css'
+  | 'json'
+  | 'flow'
+  | 'babel-flow'
+  | 'babel-ts'
+  | 'typescript'
+  | 'json'
+  | 'markdown'
+  | 'html';
+```
