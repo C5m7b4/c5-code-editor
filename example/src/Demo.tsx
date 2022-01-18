@@ -21,7 +21,14 @@ const parsers: Parsers[] = [
 
 const Demo: React.FC = () => {
   const [showLineNumbers, setShowLineNumbers] = useState(true);
-  const [codeString, setCodeString] = useState('App');
+  const [codeString, setCodeString] = useState(`import React from 'react'
+  const App = () => {
+    return (
+      <div className="main-div">
+        <h2>Hello world</h2>
+      </div>
+    )
+  }`);
   const [codeElemColor, setCodeElemColor] = useState<Color>(
     findColor('code-elem')
   );
@@ -56,8 +63,11 @@ const Demo: React.FC = () => {
     'searchPhrase',
   ]);
   const [customDefaults, setCustomDefaults] = useState(['Content-Type']);
+  const [customAlternatives, setCustomAlternatives] = useState(['App']);
   const [format, setFormat] = useState(true);
   const [parser, setParser] = useState<Parsers>('babel');
+  const [parenColor, setParenColor] = useState<Color>(findColor('parens'));
+  const [enableParens, setEnableParens] = useState(true);
 
   useEffect(() => {}, [showLineNumbers]);
 
@@ -74,6 +84,11 @@ const Demo: React.FC = () => {
   const addCustomDefault = (words: string) => {
     const stringArray = words.split(',');
     setCustomDefaults(stringArray);
+  };
+
+  const addCustomAlternative = (words: string) => {
+    const stringArray = words.split(',');
+    setCustomAlternatives(stringArray);
   };
   return (
     <div className="main-content">
@@ -103,7 +118,11 @@ const Demo: React.FC = () => {
           customReserveWords={customReserveWords}
           customAppWords={customAppWords}
           customDefaults={customDefaults}
-          format={true}
+          customAlternatives={customAlternatives}
+          parens={parenColor as string}
+          enableParens={enableParens}
+          parserType={parser}
+          format={format}
         />
       </div>
       <div className="controls">
@@ -230,6 +249,15 @@ const Demo: React.FC = () => {
             />
           </div>
         </div>
+        <div className="two-controls">
+          <CodeElement
+            label="Parenthesis"
+            variable={parenColor}
+            varSetter={setParenColor}
+            enable={enableParens}
+            enableSetter={setEnableParens}
+          />
+        </div>
         <div className="customs">
           <label>Custom Reserved words</label>
           <input
@@ -255,6 +283,14 @@ const Demo: React.FC = () => {
             value={customDefaults}
             spellCheck={false}
             onChange={(e) => addCustomDefault(e.target.value)}
+          />
+        </div>
+        <div className="alternatives">
+          <label>Custom Alternatives</label>
+          <input
+            type="text"
+            value={customAlternatives}
+            onChange={(e) => addCustomAlternative(e.target.value)}
           />
         </div>
       </div>
