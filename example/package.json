@@ -28,6 +28,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "c5-tooltips": "^0.0.3",
     "react-color": "^2.19.3",
     "reactcss": "^1.2.3"
   }
