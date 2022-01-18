@@ -4,7 +4,9 @@ import { Color } from 'c5-pick-color';
 import CodeElement from './components/CodeElement';
 import { snippets, SnippetType } from './snippets';
 import { Parsers } from '../../src';
+import ToolTipController from 'c5-tooltips';
 import './Demo.css';
+import '../node_modules/c5-tooltips/dist/css/c5-tooltip.min.css';
 
 const parsers: Parsers[] = [
   'babel',
@@ -72,6 +74,13 @@ const Demo: React.FC = () => {
     findColor('inside-parens')
   );
   const [enableInsideParens, setEnableInsideParens] = useState(true);
+  const [colorInterfaceContents, setColorInterfaceContents] = useState(true);
+  const [interfaceKey, setInterfaceKey] = useState<Color>(
+    findColor('interface-key')
+  );
+  const [interfaceValue, setInterfaceValue] = useState<Color>(
+    findColor('interface-value')
+  );
 
   useEffect(() => {}, [showLineNumbers]);
 
@@ -127,6 +136,9 @@ const Demo: React.FC = () => {
           enableParens={enableParens}
           insideParens={insideParens as string}
           enableInsideParens={enableInsideParens}
+          colorInterfaceContents={colorInterfaceContents}
+          interfaceKey={interfaceKey as string}
+          interfaceValue={interfaceValue as string}
           parserType={parser}
           format={format}
         />
@@ -185,6 +197,7 @@ const Demo: React.FC = () => {
             varSetter={setCodeElemColor}
             enable={enableCodeElemColor}
             enableSetter={setEnableCodeElemColor}
+            tooltip={'Color inside brackets (code elements)'}
           />
           <CodeElement
             label={'String color'}
@@ -192,6 +205,7 @@ const Demo: React.FC = () => {
             varSetter={setCodeStr}
             enable={enableCodeStrColor}
             enableSetter={setEnableCodeStrColor}
+            tooltip={'Color of strings inside double quotes'}
           />
           <div className="two-controls">
             <CodeElement
@@ -200,6 +214,7 @@ const Demo: React.FC = () => {
               varSetter={setCodeQuote}
               enable={enableCodeQuote}
               enableSetter={setEnableCodeQuote}
+              tooltip={'Color of double quotes'}
             />
           </div>
         </div>
@@ -211,6 +226,7 @@ const Demo: React.FC = () => {
             varSetter={setReserved}
             enable={enableReserved}
             enableSetter={setEnableReserved}
+            tooltip={'Color of reserved words'}
           />
           <CodeElement
             label="App color"
@@ -218,6 +234,7 @@ const Demo: React.FC = () => {
             varSetter={setAppColor}
             enable={enableAppColor}
             enableSetter={setEnableAppColor}
+            tooltip={'Color of app like words'}
           />
           <div className="two-controls">
             <CodeElement
@@ -226,6 +243,7 @@ const Demo: React.FC = () => {
               varSetter={setDefaultColor}
               enable={enableDefault}
               enableSetter={setEnableDefault}
+              tooltip={'Color of default keywords'}
             />
           </div>
         </div>
@@ -237,6 +255,7 @@ const Demo: React.FC = () => {
             varSetter={setCodeSingle}
             enable={enableCodeSingle}
             enableSetter={setEnableCodeSingle}
+            tooltip={'Color of single quotes'}
           />
           <CodeElement
             label={'Between quotes'}
@@ -244,6 +263,7 @@ const Demo: React.FC = () => {
             varSetter={setBetweenSingleQuotes}
             enable={enableBetweenSingleQuotes}
             enableSetter={setEnableBetweenSingleQuotes}
+            tooltip={'Color of text inside single quotes'}
           />
           <div className="two-controls">
             <CodeElement
@@ -252,6 +272,7 @@ const Demo: React.FC = () => {
               varSetter={setAlternates}
               enable={enableAlternates}
               enableSetter={setEnableAlternates}
+              tooltip={'Color of alternate words'}
             />
           </div>
         </div>
@@ -262,6 +283,7 @@ const Demo: React.FC = () => {
             varSetter={setParenColor}
             enable={enableParens}
             enableSetter={setEnableParens}
+            tooltip={'Color of parenthesis'}
           />
           <CodeElement
             label={'Inside Parens'}
@@ -269,10 +291,33 @@ const Demo: React.FC = () => {
             varSetter={setInsideParens}
             enable={enableInsideParens}
             enableSetter={setEnableInsideParens}
+            tooltip={'Color of text inside parenthesis'}
+          />
+        </div>
+        <div className="two-controls">
+          <CodeElement
+            label={'Interface Key'}
+            variable={interfaceKey}
+            varSetter={setInterfaceKey}
+            enable={colorInterfaceContents}
+            enableSetter={setColorInterfaceContents}
+            tooltip={'Color of the left side of an interface type'}
+          />
+          <CodeElement
+            label={'Interface Value'}
+            variable={interfaceValue}
+            varSetter={setInterfaceValue}
+            enable={colorInterfaceContents}
+            enableSetter={setColorInterfaceContents}
+            tooltip={'Color of the right side of an interface type'}
           />
         </div>
         <div className="customs">
-          <label>Custom Reserved words</label>
+          <ToolTipController>
+            <label tool-tip="Any words you want the same color as reserved words">
+              Custom Reserved words
+            </label>
+          </ToolTipController>
           <input
             type="text"
             value={customReserveWords}
@@ -281,7 +326,11 @@ const Demo: React.FC = () => {
           />
         </div>
         <div className="customs">
-          <label>Custom App words</label>
+          <ToolTipController>
+            <label tool-tip="Any words you want the same color as app words">
+              Custom App words
+            </label>
+          </ToolTipController>
           <input
             type="text"
             value={customAppWords}
@@ -290,7 +339,11 @@ const Demo: React.FC = () => {
           />
         </div>
         <div className="customs">
-          <label>Custom Default words</label>
+          <ToolTipController>
+            <label tool-tip="any words you want the same color as default words">
+              Custom Default words
+            </label>
+          </ToolTipController>
           <input
             type="text"
             value={customDefaults}
@@ -299,7 +352,11 @@ const Demo: React.FC = () => {
           />
         </div>
         <div className="alternatives">
-          <label>Custom Alternatives</label>
+          <ToolTipController>
+            <label tool-tip="any words you want the same color as alt words">
+              Custom Alternatives
+            </label>
+          </ToolTipController>
           <input
             type="text"
             value={customAlternatives}
