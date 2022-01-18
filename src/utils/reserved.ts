@@ -1,11 +1,7 @@
 export const reservedWords: string[] = [
-  'const',
-  'let',
-  'var',
   'id',
-  'class',
   'className',
-  'classname',
+  'class',
   'if',
   'then',
   'json',
@@ -14,11 +10,24 @@ export const reservedWords: string[] = [
   'async',
   'await',
   'for',
-  'function',
 ];
 
-export const defaultWords: string[] = ['return', 'import'];
+export const defaultWords: string[] = [
+  'return',
+  'import',
+  'console',
+  'log',
+  'from',
+];
 
-export const appWords: string[] = ['React', 'Axios'];
+export const appWords: string[] = [
+  'React',
+  'Axios',
+  'const',
+  'function',
+  'let',
+  'var',
+  'avion',
+];
 
 export const alternateWords: string[] = ['url', 'params', 'data', 'cors'];
