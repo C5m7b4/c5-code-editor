@@ -30,6 +30,8 @@ export interface EditorProps {
   enableCodeSingle?: boolean;
   betweenSingleQuotes?: string;
   enableBetweenSingleQuotes?: boolean;
+  parens?: string;
+  enableParens?: boolean;
   alternates?: string;
   enableAlternates?: boolean;
   customReserveWords?: string[];
@@ -59,6 +61,8 @@ const Editor: React.FC<EditorProps> = ({
   enableCodeSingle = true,
   betweenSingleQuotes = findColor('between-single-quotes'),
   enableBetweenSingleQuotes = true,
+  parens = findColor('parens'),
+  enableParens = true,
   alternates = findColor('alternates'),
   enableAlternates = true,
   customReserveWords = [],
@@ -127,6 +131,15 @@ const Editor: React.FC<EditorProps> = ({
         /&#39;/g,
         `<span style="color:${codeSingle}">&#39;</span>`
       );
+    }
+
+    if (enableParens) {
+      line = line.replace(/\(/g, `<span style="color:${parens}">(</span>`);
+      line = line.replace(/\)/g, `<span style="color:${parens}">)</span>`);
+      // line = line.replace(
+      //   /\((.?)\)/g,
+      //   `<span style="color:${parens}">($1)</span>`
+      // );
     }
 
     if (enableCodeElem) {
