@@ -34,7 +34,7 @@ const CodeElement: React.FC<CodeElementProps> = ({
             checked={enable}
             onChange={(e) => enableSetter(e.target.checked)}
           />
-          <label>Enable</label>
+          <label style={{ marginLeft: '8px' }}>Enable</label>
         </span>
       </div>
     </div>
