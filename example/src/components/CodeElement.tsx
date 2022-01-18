@@ -1,5 +1,6 @@
 import React from 'react';
 import ColorPickerWrapper, { Color } from 'c5-pick-color';
+import ToolTipController from 'c5-tooltips';
 
 interface CodeElementProps {
   enable: boolean;
@@ -7,6 +8,7 @@ interface CodeElementProps {
   varSetter: (v: Color) => void;
   enableSetter: (v: boolean) => void;
   label: string;
+  tooltip?: string;
 }
 
 const CodeElement: React.FC<CodeElementProps> = ({
@@ -15,11 +17,14 @@ const CodeElement: React.FC<CodeElementProps> = ({
   varSetter,
   enableSetter,
   label,
+  tooltip,
 }) => {
   return (
     <div className="code-elem-control">
       <span>
-        <label>{label}</label>
+        <ToolTipController>
+          <label tool-tip={tooltip}>{label}</label>
+        </ToolTipController>
       </span>
       <div className="code-elements">
         <span>
