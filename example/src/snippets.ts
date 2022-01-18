@@ -67,4 +67,17 @@ export const snippets: SnippetArray = [
     name: 'ClassName',
     contents: `<div className="testing">Hello</div>`,
   },
+  {
+    name: 'Typescript',
+    contents: `import React from 'react'
+      export interface TestProps {
+        name: string;
+        enable: boolean
+      }
+
+      export const Test:React.FC<TestProps> = ({name, enable}) => {
+        console.log("i am here")
+      }
+    `,
+  },
 ];
