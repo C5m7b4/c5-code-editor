@@ -63,4 +63,8 @@ export const snippets: SnippetArray = [
       }
     `,
   },
+  {
+    name: 'ClassName',
+    contents: `<div className="testing">Hello</div>`,
+  },
 ];
