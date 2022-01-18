@@ -10,6 +10,8 @@ export const reservedWords: string[] = [
   'async',
   'await',
   'for',
+  'true',
+  'false',
 ];
 
 export const defaultWords: string[] = [
@@ -18,6 +20,8 @@ export const defaultWords: string[] = [
   'console',
   'log',
   'from',
+  'export',
+  '.FC',
 ];
 
 export const appWords: string[] = [
@@ -28,6 +32,8 @@ export const appWords: string[] = [
   'let',
   'var',
   'avion',
+  'interface',
+  'type',
 ];
 
 export const alternateWords: string[] = ['url', 'params', 'data', 'cors'];
