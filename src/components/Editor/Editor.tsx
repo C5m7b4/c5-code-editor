@@ -6,10 +6,13 @@ import {
   appWords,
   defaultWords,
   alternateWords,
+  operators,
+  copyTextToClipboard,
 } from '../../utils';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 import { Parsers } from '../../types';
+import Clipboard from '../../assets/clipboard.svg';
 
 export interface EditorProps {
   code: string;
@@ -43,6 +46,12 @@ export interface EditorProps {
   colorInterfaceContents?: boolean;
   interfaceKey?: string;
   interfaceValue?: string;
+  curlyBracesColor?: string;
+  enableCurlyBracesColor?: boolean;
+  destructured?: string;
+  enableDestructured?: boolean;
+  operatorColor?: string;
+  enableOperatorColor?: boolean;
   format?: boolean;
   parserType?: Parsers;
 }
@@ -79,6 +88,12 @@ const Editor: React.FC<EditorProps> = ({
   colorInterfaceContents = true,
   interfaceKey = findColor('interface-key'),
   interfaceValue = findColor('interface-value'),
+  curlyBracesColor = findColor('curly-braces'),
+  enableCurlyBracesColor = true,
+  destructured = findColor('destructued'),
+  enableDestructured = true,
+  operatorColor = findColor('operator-color'),
+  enableOperatorColor = true,
   parserType = 'babel',
   format = false,
 }) => {
@@ -114,6 +129,35 @@ const Editor: React.FC<EditorProps> = ({
     }
   };
 
+  const copy = (
+    t: string,
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ): void => {
+    const { result, msg } = copyTextToClipboard(t);
+    const div = document.createElement('div');
+    div.classList.add('c5-editor-clipboard-result');
+    div.style.position = 'absolute';
+    div.style.top = e.clientY + 40 + 'px';
+    div.style.left = e.clientX - 80 + 'px';
+    if (e.view) {
+      // @ts-ignore
+      div.style.top = e.clientY + 40 + e.view.scrollY + 'px';
+    }
+    if (result == true) {
+      div.style.color = 'limegreen';
+      div.innerText = 'Code copied to clipboard';
+    } else {
+      div.style.color = 'red';
+      div.innerText = msg;
+    }
+
+    document.body.appendChild(div);
+
+    setTimeout(() => {
+      document.body.removeChild(div);
+    }, 4000);
+  };
+
   const replace = (line: string): string => {
     if (colorInterfaceContents) {
       if (line.indexOf(':') > 0) {
@@ -131,6 +175,24 @@ const Editor: React.FC<EditorProps> = ({
           `<span style="color:${interfaceValue}">${right}</span>`
         );
       }
+    }
+
+    if (enableDestructured) {
+      line = line.replace(
+        /{(.*?)}/g,
+        `<span style="color:${destructured}">{$1}</span>`
+      );
+    }
+
+    if (enableCurlyBracesColor) {
+      line = line.replace(
+        /{/g,
+        `<span style="color:${curlyBracesColor}">{</span>`
+      );
+      line = line.replace(
+        /}/g,
+        `<span style="color:${curlyBracesColor}">}</span>`
+      );
     }
 
     if (enableCodeStr) {
@@ -268,11 +330,29 @@ const Editor: React.FC<EditorProps> = ({
       });
     }
 
+    if (enableOperatorColor) {
+      operators.forEach((operator) => {
+        const re = new RegExp(operator, 'g');
+        line = line.replace(
+          re,
+          `<span style="color:${operatorColor}">${operator}</span>`
+        );
+      });
+    }
+
     return line;
   };
 
   return (
     <code className="code">
+      <div className="copy-to-clipboard">
+        <img
+          className="c5-editor-clipboard"
+          src={Clipboard}
+          alt="clipboard"
+          onClick={(e) => copy(code, e)}
+        />
+      </div>
       <div className="editor-top-spacer">
         {showLineNumbers ? <div className="line-number"></div> : <div></div>}
         <div className="code-line"></div>
