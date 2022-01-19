@@ -3,6 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import external from 'rollup-plugin-peer-deps-external';
 import resolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import reactSvg from 'rollup-plugin-react-svg';
 
 import pkg from './package.json';
 
@@ -44,6 +45,15 @@ export default {
         ],
         'node_modules/react-dom/index.js': ['render'],
       },
+    }),
+    reactSvg({
+      svgo: {
+        plugins: [],
+        multipass: true,
+      },
+      jsx: false,
+      include: null,
+      exclude: null,
     }),
     terser(),
   ],
