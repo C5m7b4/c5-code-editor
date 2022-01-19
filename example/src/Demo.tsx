@@ -81,6 +81,18 @@ const Demo: React.FC = () => {
   const [interfaceValue, setInterfaceValue] = useState<Color>(
     findColor('interface-value')
   );
+  const [curlyBracesColor, setCurlyBracesColor] = useState<Color>(
+    findColor('curly-braces')
+  );
+  const [enableCurlyBracesColor, setEnableCurlyBracesColor] = useState(true);
+  const [destructured, setDestructured] = useState<Color>(
+    findColor('destructured')
+  );
+  const [enableDestructured, setEnableDestructured] = useState(true);
+  const [operatorColor, setOperatorColor] = useState<Color>(
+    findColor('operator-color')
+  );
+  const [enableOperatorColor, setEnableOperatorColor] = useState(true);
 
   useEffect(() => {}, [showLineNumbers]);
 
@@ -139,6 +151,12 @@ const Demo: React.FC = () => {
           colorInterfaceContents={colorInterfaceContents}
           interfaceKey={interfaceKey as string}
           interfaceValue={interfaceValue as string}
+          curlyBracesColor={curlyBracesColor as string}
+          enableCurlyBracesColor={enableCurlyBracesColor}
+          destructured={destructured as string}
+          enableDestructured={enableDestructured}
+          operatorColor={operatorColor as string}
+          enableOperatorColor={enableOperatorColor}
           parserType={parser}
           format={format}
         />
@@ -285,14 +303,25 @@ const Demo: React.FC = () => {
             enableSetter={setEnableParens}
             tooltip={'Color of parenthesis'}
           />
+
           <CodeElement
-            label={'Inside Parens'}
-            variable={insideParens}
-            varSetter={setInsideParens}
-            enable={enableInsideParens}
-            enableSetter={setEnableInsideParens}
-            tooltip={'Color of text inside parenthesis'}
+            label={'Curly Braces'}
+            variable={curlyBracesColor}
+            varSetter={setCurlyBracesColor}
+            enable={enableCurlyBracesColor}
+            enableSetter={setEnableCurlyBracesColor}
+            tooltip={'Color of curly braces'}
           />
+          <div className="two-controls">
+            <CodeElement
+              label={'Inside Parens'}
+              variable={insideParens}
+              varSetter={setInsideParens}
+              enable={enableInsideParens}
+              enableSetter={setEnableInsideParens}
+              tooltip={'Color of text inside parenthesis'}
+            />
+          </div>
         </div>
         <div className="two-controls">
           <CodeElement
@@ -304,12 +333,32 @@ const Demo: React.FC = () => {
             tooltip={'Color of the left side of an interface type'}
           />
           <CodeElement
-            label={'Interface Value'}
-            variable={interfaceValue}
-            varSetter={setInterfaceValue}
-            enable={colorInterfaceContents}
-            enableSetter={setColorInterfaceContents}
-            tooltip={'Color of the right side of an interface type'}
+            label={'destructued'}
+            variable={destructured}
+            varSetter={setDestructured}
+            enable={enableDestructured}
+            enableSetter={setEnableDestructured}
+            tooltip={'color destructured variables'}
+          />
+          <div className="two-controls">
+            <CodeElement
+              label={'Interface Value'}
+              variable={interfaceValue}
+              varSetter={setInterfaceValue}
+              enable={colorInterfaceContents}
+              enableSetter={setColorInterfaceContents}
+              tooltip={'Color of the right side of an interface type'}
+            />
+          </div>
+        </div>
+        <div className="two-controls">
+          <CodeElement
+            label={'Operator Color'}
+            variable={operatorColor}
+            varSetter={setOperatorColor}
+            enable={enableOperatorColor}
+            enableSetter={setEnableOperatorColor}
+            tooltip={'Color of math operators an fat arrows'}
           />
         </div>
         <div className="customs">
