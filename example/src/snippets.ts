@@ -80,4 +80,8 @@ export const snippets: SnippetArray = [
       }
     `,
   },
+  {
+    name: 'Fat Arrow',
+    contents: `const filtered = filter.filter(a => a.id === id)`,
+  },
 ];
