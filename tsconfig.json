@@ -20,7 +20,8 @@
     "declarationDir": "dist",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "typeRoots": ["./src/types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
