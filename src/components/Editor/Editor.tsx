@@ -12,11 +12,12 @@ import {
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 import { Parsers } from '../../types';
-import Clipboard from '../../assets/clipboard.svg';
+// import Clipboard from '../../assets/clipboard.svg';
+import { clipboard } from '../Icons';
 
 export interface EditorProps {
   code: string;
-  showLineNumbers: boolean;
+  showLineNumbers?: boolean;
   codeElem?: string;
   enableCodeElem?: boolean;
   codeStr?: string;
@@ -131,7 +132,7 @@ const Editor: React.FC<EditorProps> = ({
 
   const copy = (
     t: string,
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ): void => {
     const { result, msg } = copyTextToClipboard(t);
     const div = document.createElement('div');
@@ -346,12 +347,15 @@ const Editor: React.FC<EditorProps> = ({
   return (
     <code className="code">
       <div className="copy-to-clipboard">
-        <img
+        {/* <img
           className="c5-editor-clipboard"
-          src={Clipboard}
+          src={clipboard}
           alt="clipboard"
           onClick={(e) => copy(code, e)}
-        />
+        /> */}
+        <div className="c5-editor-clipboard" onClick={(e) => copy(code, e)}>
+          {clipboard()}
+        </div>
       </div>
       <div className="editor-top-spacer">
         {showLineNumbers ? <div className="line-number"></div> : <div></div>}
