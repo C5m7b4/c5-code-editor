@@ -22,6 +22,12 @@ export const defaultWords: string[] = [
   'from',
   'export',
   '.FC',
+  '.map',
+  '.filter',
+  '.reduce',
+  '.find',
+  '.findId',
+  '.forEach',
 ];
 
 export const appWords: string[] = [
@@ -37,3 +43,19 @@ export const appWords: string[] = [
 ];
 
 export const alternateWords: string[] = ['url', 'params', 'data', 'cors'];
+
+export const operators: string[] = [
+  '===',
+  '=>',
+  '=&gt;',
+  ' = ',
+  '&lt;',
+  '&gt;',
+  '&lt;-',
+  '&gt;=',
+  '&lt;&gt;',
+  '&lt;/&gt;',
+  '!=',
+  '!==',
+  '==',
+];
