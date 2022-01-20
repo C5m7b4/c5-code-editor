@@ -347,12 +347,6 @@ const Editor: React.FC<EditorProps> = ({
   return (
     <code className="code">
       <div className="copy-to-clipboard">
-        {/* <img
-          className="c5-editor-clipboard"
-          src={clipboard}
-          alt="clipboard"
-          onClick={(e) => copy(code, e)}
-        /> */}
         <div className="c5-editor-clipboard" onClick={(e) => copy(code, e)}>
           {clipboard()}
         </div>
